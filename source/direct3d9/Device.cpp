@@ -149,6 +149,15 @@ namespace Direct3D9
 	}
 #pragma warning(default:4717)
 
+	//zero 20-aug-2015
+	Result Device::DrawUserPrimitives( PrimitiveType primitiveType, int primitiveCount, void* data, UINT stride )
+	{
+		HRESULT hr = InternalPointer->DrawPrimitiveUP( static_cast<D3DPRIMITIVETYPE>( primitiveType ), primitiveCount,
+			data, stride);
+		return RECORD_D3D9( hr );
+	}
+#pragma warning(default:4717)
+
 	Result Device::DrawIndexedPrimitives( PrimitiveType primitiveType, int baseVertexIndex, int minVertexIndex, 
 		int numVertices, int startIndex, int primCount )
 	{

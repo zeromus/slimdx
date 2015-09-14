@@ -1130,6 +1130,17 @@ namespace SlimDX
 			Result DrawUserPrimitives( PrimitiveType primitiveType, int startIndex, int primitiveCount, array<T>^ data );
 
 			/// <summary>
+			/// Renders non-indexed geometric primitives using user-supplied data.
+			/// </summary>
+			/// <param name="primitiveType">Specifies the type of primitive to render.</param>
+			/// <param name="primitiveCount">The number of primitives to render. The number of vertices used is a function of the primitive count and the primitive type.</param>
+			/// <param name="data">User-supplied vertex data.</param>
+			/// <param name="stride">Stride of a vertex</param>
+			/// <returns>A <see cref="SlimDX::Result"/> object describing the result of the operation.</returns>
+			/// <unmanaged>IDirect3DDevice9::DrawPrimitiveUP</unmanaged>
+			Result DrawUserPrimitives( PrimitiveType primitiveType, int primitiveCount, void* data, UINT stride );
+
+			/// <summary>
 			/// Renders the specified geometric primitive using user-supplied data.
 			/// </summary>
 			/// <typeparam name="S">The type of the data contained in the index data.</typeparam>
