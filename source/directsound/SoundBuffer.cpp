@@ -254,7 +254,13 @@ namespace DirectSound
 	{
 		DWORD status = 0;
 		HRESULT hr = InternalPointer->GetStatus( &status );
-		RECORD_DSOUND( hr );
+		//NO, DONT DO THIS.
+		//THIS IS NONSENSE
+		//THIS IS THE ONLY WAY TO FIND OUT IF THE BUFFER IS LOST
+		//BUT THIS ALSO RETURNS NONSENSE (IE BUFFERLOST ERROR INSTEAD OF DSBSTATUS_BUFFERLOST
+		//SO, WHAT THE HELL. 
+		//RECORD_DSOUND( hr );
+		if(hr == DSERR_BUFFERLOST) status = DSBSTATUS_BUFFERLOST;
 
 		return static_cast<BufferStatus>( status );
 	}
