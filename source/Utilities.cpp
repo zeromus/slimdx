@@ -424,12 +424,26 @@ namespace SlimDX
 
 		return true;
 	}
-
+	[System::Runtime::ExceptionServices::HandleProcessCorruptedStateExceptions]
 	String^ Utilities::BufferToString( ID3DXBuffer *buffer )
 	{
 		if( buffer != NULL )
 		{
-			String^ string = gcnew String( reinterpret_cast<const char*>( buffer->GetBufferPointer() ) );
+			LPVOID ptr = NULL;
+			try
+			{
+				ptr = buffer->GetBufferPointer();
+			}
+			catch(Exception^)
+			{
+				//yep, sometimes this crashes
+			}
+
+			const char* bufPtr = reinterpret_cast<const char*>( ptr );
+			if(bufPtr == NULL)
+				return String::Empty;
+
+			String^ string = gcnew String( bufPtr );
 			buffer->Release();
 			return string;
 		}
@@ -437,7 +451,7 @@ namespace SlimDX
 		{
 			return String::Empty;
 		}
-	}
+}
 
 	String^ Utilities::BlobToString( ID3D10Blob *blob )
 	{
